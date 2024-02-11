@@ -13,11 +13,13 @@ function NavbarComponent() {
 
     <div className='bg-mainBlue py-[10px] xl:py-[0px]  lg:h-[100px] flex items-center'>
         <div className='container mx-auto flex justify-between lg:flex-row items-center flex-col gap-[15px]'>
-        <img 
-            src={logo} 
-            alt='Shopelectron logo'
-            className=''
-        />
+        <Link to={'/'}>
+            <img 
+                src={logo} 
+                alt='Shopelectron logo'
+                className=''
+            />
+        </Link>
             {/*Search component*/}
             <div className='bg-textWhite rounded-[20px] flex'>
                 <input type='text' placeholder='Search Product' className='px-[25px] py-[17px] rounded-[20px] outline-none placeholder:text-black text-[14px]'/>

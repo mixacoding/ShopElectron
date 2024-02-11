@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+
+
+//Provider
 import { ClerkProvider } from '@clerk/clerk-react'
-//router
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 //redux
@@ -11,6 +13,7 @@ import store from './store/store.js'
 //pages/layout
 import AppLayout from './AppLayout.jsx'
 import HomePage from './pages/HomePage.jsx'
+import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
 
 
 
@@ -30,6 +33,10 @@ const router = createBrowserRouter([
       {
         path : '/',
         element : <HomePage />
+      },
+      {
+        path : '/productDetails/:id',
+        element : <ProductDetailsPage />
       }
     ]
   }
