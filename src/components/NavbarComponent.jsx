@@ -6,6 +6,7 @@ import logo from '../assets/logo.png'
 //icons
 import { CiUser,CiHeart,CiShoppingCart } from "react-icons/ci";
 import { Link } from 'react-router-dom';
+import { SignInButton, SignOutButton, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 function NavbarComponent() {
   return (
@@ -27,7 +28,19 @@ function NavbarComponent() {
             {/*login Fix please implement clerck!*/}
                 <div className='flex items-center gap-[5px]'>
                     <CiUser size={30} />
-                    <span>Sign In</span>
+                    <SignedOut>
+                        <SignInButton />
+                    </SignedOut>
+                    <SignedIn>
+                    <UserButton  afterSignOutUrl='/' appearance={{
+                        variables :{
+                            colorText : 'black'
+                        },
+                        elements : {
+                        avatarBox : 'w-[40px] h-[40px]',
+                        }
+                }}/>
+                    </SignedIn>
                 </div>
                 <div className='flex items-center'>
                     <div className='flex items-center gap-[5px]'>
