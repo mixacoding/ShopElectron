@@ -10,10 +10,13 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 //redux
 import { Provider } from 'react-redux'
 import store from './store/store.js'
+
+
 //pages/layout
 import AppLayout from './AppLayout.jsx'
 import HomePage from './pages/HomePage.jsx'
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
+import CardProductPage from './pages/CardProductPage.jsx'
 
 
 
@@ -37,6 +40,10 @@ const router = createBrowserRouter([
       {
         path : '/productDetails/:id',
         element : <ProductDetailsPage />
+      },
+      {
+        path : '/cardProducts',
+        element : <CardProductPage />
       }
     ]
   }
