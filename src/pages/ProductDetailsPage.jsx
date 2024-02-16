@@ -31,7 +31,7 @@ function ProductDetailsPage() {
     .then((res)=> {
       setSingleProduct(res.data)
       setIsLodaing(true)
-      console.log(res.data);
+      
     })
     .catch((err)=> console.log(err))
   },[])

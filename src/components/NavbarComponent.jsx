@@ -7,8 +7,11 @@ import logo from '../assets/logo.png'
 import { CiUser,CiHeart,CiShoppingCart } from "react-icons/ci";
 import { Link } from 'react-router-dom';
 import { SignInButton, SignOutButton, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
+import { useSelector } from 'react-redux';
 
 function NavbarComponent() {
+
+    const {totalProduct} = useSelector (state=>state.cartStore);
   return (
 
     <div className='bg-mainBlue py-[10px] xl:py-[0px]  lg:h-[100px] flex items-center'>
@@ -54,9 +57,9 @@ function NavbarComponent() {
                 <div className='flex items-center'>
                     <div className='flex items-center gap-[5px]'>
                         <CiShoppingCart size={30} />
-                        <span className='bg-mainOrange rounded-full w-[25px] h-[25px] flex items-center justify-center'>0</span>
+                        <span className='bg-mainOrange rounded-full w-[25px] h-[25px] flex items-center justify-center'>{totalProduct}</span>
                     </div>
-                    <Link to='/'>Cart</Link>
+                    <Link to='/cardProducts'>Cart</Link>
                 </div>
             </div>
         </div>
