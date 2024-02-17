@@ -102,6 +102,7 @@ function ProductDetailsPage() {
                 {/*ADD /Favorite section*/}
                   <div className="flex items-center gap-3">
                 {/*<ButtonComponent label='Add Cart' bgColor='#EDA415' textColor='#fff' />*/}
+                {/* Fixme: fix add cart button with redux(cartSlice) */}
                     <Link to={'/cardProducts'} className="px-[32px] py-[12px] rounded-full bg-mainOrange text-textWhite" onClick={()=>handleProduct()}>
                      Add Card
                     </Link>
