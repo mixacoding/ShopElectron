@@ -9,7 +9,7 @@ const cartSlice = createSlice({
     },
     reducers : {
             saveInCartHandler:(state,action)=>{
-                console.log(action.payload);
+                // console.log(action.payload);
                 let copyArray = [...state.cart];
                 //Proveravam indexnu poziciju u arrayu
                 let findIndex = null;

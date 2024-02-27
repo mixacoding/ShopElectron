@@ -17,6 +17,7 @@ import AppLayout from './AppLayout.jsx'
 import HomePage from './pages/HomePage.jsx'
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
 import CardProductPage from './pages/CardProductPage.jsx'
+import FavoritesPage from './pages/FavoritesPage.jsx'
 
 
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path : '/cardProducts',
         element : <CardProductPage />
+      },
+      {
+        path : '/favorites',
+        element : <FavoritesPage />
       }
     ]
   }

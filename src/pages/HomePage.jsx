@@ -47,7 +47,8 @@ function HomePage() {
              key={item.id} 
              item={item}
               activView={activView}
-            />) 
+            />
+            ) 
         })}
       </div>
     </div>

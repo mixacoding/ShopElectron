@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import ProductsServices from "../services/productServices";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //icons
 import { FaCheck } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { Rating } from "@mui/material";
 import { CiHeart } from "react-icons/ci";
-import { saveInCartHandler } from "../store/cartSlice";
+import { FaHeart } from "react-icons/fa";
 
+//Redux
+import { saveInCartHandler } from "../store/cartSlice";
+import { favoriteHandler } from "../store/favoriteSlice";
+
+//framer 
+import { motion } from "framer-motion";
 
 //components
 // import ButtonComponent from "../components/ButtonComponent";
@@ -19,7 +25,11 @@ function ProductDetailsPage() {
 
   const [currentImg,setcurrentImg] =useState(0)
   const [singleProduc,setSingleProduct]= useState({});
-  const [isLoading,setIsLodaing] =useState(false)
+  const [isLoading,setIsLodaing] =useState(false);
+
+  const [favoritIcon, setFavoritIcon] = useState(null);
+
+  const {favoriteItems} = useSelector((state)=>state.favoriteStore);
 
   const dispatch= useDispatch();
 
@@ -34,20 +44,73 @@ function ProductDetailsPage() {
       
     })
     .catch((err)=> console.log(err))
-  },[])
+  },[]);
+
+  //Na promenu samog favorit itema, id je uvek string
+  useEffect(()=>{
+    favoriteItems.find((item)=>{
+      if(item.id === parseInt(id)){
+        setFavoritIcon(item.id)
+        return;
+      }
+    })
+  },[favoriteItems])
 
   //ovde saljem proizvod u redux
   function handleProduct(){
     dispatch(saveInCartHandler(singleProduc)); 
   }
 
+  //Ovde cuvamo podatak u favoriteSlice(redux)
+  function saveToFavorite(){
+    dispatch(favoriteHandler(singleProduc));
+  }
+
+  //framer animation
+
+   const fadeInAnimationVariants = {
+     initial : {
+      opacity :0,
+      x : -100
+    },
+    animate : {
+      opacity : 1,
+      x : 0,
+      transition : {
+        delay : 0.1,
+        duration : 1
+     }
+    }
+   };
+
+   const fadefromRightSide = {
+    initial : {
+     opacity :0,
+     x : 100
+   },
+   animate : {
+     opacity : 1,
+     x : 0,
+     transition : {
+       delay : 0.1,
+       duration : 1
+    }
+   }
+  }
   return (
     <>
       {isLoading && (
         <div className="container mx-auto">
             <div className="flex mt-[50px] flex-col items-center justify-center gap-[30px] lg:gap-[10px] lg:flex-row">
             {/*left side image*/}
-            <div className="flex flex-col gap-[30px] justify-center items-center w-full px-[20px] lg:px-[0px] lg:w-[50%]">
+            <motion.div  className="flex flex-col gap-[30px] justify-center items-center w-full px-[20px] lg:px-[0px] lg:w-[50%]"
+            // initial={{ opacity: 0 }}
+            // animate={{ opacity: 1 }}
+            variants={fadeInAnimationVariants}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            >
               <img 
                 src={singleProduc.images[currentImg]} 
                 alt={singleProduc.title} 
@@ -65,9 +128,16 @@ function ProductDetailsPage() {
                     />)
                 })}
               </div>
-            </div>
+            </motion.div>
             {/*righ side content*/}
-            <div className="lg:w-[50%] w-full px-[20px] lg:px-[0px] flex flex-col gap-3">
+            <motion.div  className="lg:w-[50%] w-full px-[20px] lg:px-[0px] flex flex-col gap-3"  
+            // initial={{ opacity: 0 }}
+            // animate={{ opacity: 1 }}
+            variants={fadefromRightSide}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            >
                 <h2 className="text-[30px] text-mainBlue font-bold">{singleProduc.title}</h2>
                 <span className="text-[30px] text-textColor">${singleProduc.price}</span>
                 <div className="flex items-center">
@@ -107,10 +177,15 @@ function ProductDetailsPage() {
                      Add Card
                     </Link>
                     <button className="px-[32px] py-[12px] rounded-full bg-slate-400 ">
-                      <CiHeart size={32} color="#fff" />
+                      <Link to='/favorites'>
+                      {favoritIcon=== parseInt(id) ? 
+                        <FaHeart size={32} color="#f90000" onClick={()=>saveToFavorite()} /> 
+                        : 
+                        <CiHeart size={32} color="#fff" onClick={()=>saveToFavorite()}/>}
+                      </Link>
                     </button>
                   </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       )} 

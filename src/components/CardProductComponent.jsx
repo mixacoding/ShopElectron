@@ -1,11 +1,17 @@
 import { Rating } from "@mui/material";
 import { Link } from "react-router-dom";
 
+//framer 
+import { motion } from "framer-motion";
+
 function CardProductComponent({item,activView}) {
     // console.log(item);
     
   return (
-    <div className={activView === 'gridView' ? "w-[300px] h-full border border-mainBlue rounded-[10px] flex flex-col text-center gap-[15px]" : "w-full mt-[40px] flex items-center justify-between bg-slate-300 rounded-xl pr- "}>
+    <motion.div
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 1.1 }}
+    className={activView === 'gridView' ? "w-[300px] h-full border border-mainBlue rounded-[10px] flex flex-col text-center gap-[15px]" : "w-full mt-[40px] flex items-center justify-between bg-slate-300 rounded-xl pr- "}>
       <div className="relative">
         <img 
         src={item.thumbnail} 
@@ -23,7 +29,7 @@ function CardProductComponent({item,activView}) {
             readOnly />
         </div>
         <Link to={`/productDetails/${item.id}`} className="bg-mainOrange text-textWhite px-[10px] py-[10px] rounded-b-[10px] cursor-pointer hover:bg-mainBlue">View Detail...</Link>
-    </div>
+    </motion.div>
   )
 }
 

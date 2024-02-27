@@ -9,9 +9,14 @@ import { Link } from 'react-router-dom';
 import { SignInButton, SignOutButton, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 import { useSelector } from 'react-redux';
 
+//framer 
+import { motion } from "framer-motion";
+
 function NavbarComponent() {
 
     const {totalProduct} = useSelector (state=>state.cartStore);
+    const {favoritTotal} = useSelector (state=>state.favoriteStore);
+
   return (
 
     <div className='bg-mainBlue py-[10px] xl:py-[0px]  lg:h-[100px] flex items-center'>
@@ -50,16 +55,29 @@ function NavbarComponent() {
                 <div className='flex items-center'>
                     <div className='flex items-center gap-[5px]'>
                         <CiHeart size={30} />
-                        <span className='bg-mainOrange rounded-full w-[25px] h-[25px] flex items-center justify-center'>0</span>
+                        <span className='bg-mainOrange rounded-full w-[25px] h-[25px] flex items-center justify-center'>{favoritTotal}</span>
                     </div>
-                    <Link to='/'>Favorit</Link>
+                        <motion.div
+                        whileTap={{
+                            scale: 1.5
+                        }}
+                    >
+                        <Link to='/favorites'>Favorit</Link>
+                    </motion.div>
+                   
                 </div>
                 <div className='flex items-center'>
                     <div className='flex items-center gap-[5px]'>
                         <CiShoppingCart size={30} />
                         <span className='bg-mainOrange rounded-full w-[25px] h-[25px] flex items-center justify-center'>{totalProduct}</span>
                     </div>
-                    <Link to='/cardProducts'>Cart</Link>
+                    <motion.div
+                        whileTap={{
+                            scale: 1.5
+                        }}
+                    >
+                     <Link to='/cardProducts'>Cart</Link>
+                    </motion.div>
                 </div>
             </div>
         </div>
